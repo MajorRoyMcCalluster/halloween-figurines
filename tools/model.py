@@ -196,8 +196,10 @@ def particles():
     p = _float_prop(p, "GeneralSize", authoring="RandomRangeFloat", lo=0.003, hi=0.006, fixed=0.005)
     p = _colour(p, "ColourMiddle", (0.55, 1.0, 0.75, 0.9))
     for name, txt in (("HAZE", h), ("MOTES", p)):
-        txt = _set(txt, "Minimum", "0.000000"); txt = _set(txt, "Maximum", "0.001000")          # CameraDistanceFade: don't hide up close
-        txt = _set(txt, "SoftFadeStrength", "0.004000"); txt = _set(txt, "MaxRenderDistance", "60.000000")
+        txt = _set(txt, "Minimum", "0.000000"); txt = _set(txt, "Maximum", "0.000000")          # CameraDistanceFade off (as the cockpit's own smoke)
+        # soft-particle fade: alpha scales with (depth behind the particle) x strength. The ghost ship's 0.1 is for 100 m clouds;
+        # 2-4 cm above the dashboard needs a sharp fade or the whole puff is faded out (the cockpit's smoke uses 5)
+        txt = _set(txt, "SoftFadeStrength", "40.000000"); txt = _set(txt, "MaxRenderDistance", "60.000000")
         txt = _set(txt, "MaxSpawnDistance", "60.000000")
         txt = _set(txt, "EmitterSpreadAngle", "50.000000")                                       # mostly upward
         pp = out + fx_data(name).replace(".MBIN", ".MXML"); open(pp, "w").write(txt); C.mbin(pp)
@@ -209,6 +211,7 @@ def emitter_node(name, kind, at, tmpl):
     n = copy.deepcopy(tmpl)
     props = {c.get("name"): c for c in n}
     props["Name"].set("value", name); props["Type"].set("value", "EMITTER")
+    if "NameHash" in props: props["NameHash"].set("value", "0")          # game effect scenes leave it 0; don't reuse the template's
     for c in props["Transform"]:
         nm = c.get("name"); v = {"TransX": at[0], "TransY": at[1], "TransZ": at[2]}.get(nm, 1.0 if nm.startswith("Scale") else 0.0)
         c.set("value", "%.6f" % v)
