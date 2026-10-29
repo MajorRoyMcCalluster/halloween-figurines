@@ -8,3 +8,5 @@ tools/bin/*
 __pycache__/
 *.pyc
 *.zip
+work_fx/
+*.blend1

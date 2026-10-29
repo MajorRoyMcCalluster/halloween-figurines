@@ -16,7 +16,7 @@ BONUS = ("Ship_Launcher_TakeOffCost", "0.900000")
 FIGS = [
     dict(key="ghost", scene="HWGHOSTBOBBLE", tech="T_BOBBLE_GHOST", product="BOBBLE_GHOST", reward="R_BOBBLE_GHOST",
          icon="BOBBLEGHOST", name="BOO FIGURINE", name_l="Boo Figurine",
-         desc="A little sheet ghost, glowing faintly and holding a flickering jack-o'-lantern. A cursed green haze "
+         desc="A little sheet ghost, glowing faintly, waving hello and carrying a jack-o'-lantern pail of sweets. A cursed green haze "
               "drifts around it, the same ghost-light that clings to haunted frigates.\n\nInstall to an "
               "<TECHNOLOGY>Inventory Slot<> to decorate your ship's interior."),
     dict(key="skeleton", scene="HWSKELBOBBLE", tech="T_BOBBLE_SKELLY", product="BOBBLE_SKELLY", reward="R_BOBBLE_SKELLY",

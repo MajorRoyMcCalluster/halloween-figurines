@@ -4,9 +4,12 @@ Adds three NEW Halloween cockpit figurines to No Man's Sky (none of the game's f
 {items}
 
 Each one sits on the figurine pedestal with little carved jack-o'-lanterns whose candles flicker, and a
-cursed green haze drifts around it with glowing motes - the same ghost-light effect the game uses on its
-haunted frigates, shrunk down to dashboard size. The ghost is see-through, the skeleton's eyes pulse green,
-and the heads wobble like the game's own figurines.
+cursed green haze rolls around it with glowing motes - the same ghost-light effect the game uses on its
+haunted frigates, shrunk down to dashboard size.
+  - Boo: a see-through sheet ghost waving hello, with a glowing jack-o'-lantern pail of sweets
+  - Skelly: a little skeleton sitting on a big grinning jack-o'-lantern, waving, eyes glowing cursed green
+  - Pumpkin-Head: a scarecrow in a tattered cloak with an angry carved head, straw hands and a lit lantern
+The heads wobble like the game's own figurines.
 
 INSTALL
   1. Extract the "{folder}" folder into:  No Man's Sky\GAMEDATA\MODS\

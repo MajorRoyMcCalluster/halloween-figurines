@@ -13,12 +13,18 @@ import numpy as np
 S = 0.18
 LIT, CANDLE, GLOW, GHOST = "LIT", "CANDLE", "GLOW", "GHOST"
 # palette swatches for LIT
-BONE, PUMPKIN, STEM, DARK, CLOTH, STRAW, IRON, INSIDE = range(8)
+BONE, PUMPKIN, STEM, DARK, CLOTH, STRAW, IRON, INSIDE, BLUSH, WHITE, ROPE, WAX, CANDY0, CANDY1, CANDY2, CANDY3, CANDY4 = range(17)
 PALETTE = {  # sRGB colour, roughness, metallic
     BONE: ((228, 219, 196), 0.62, 0.0), PUMPKIN: ((236, 112, 18), 0.42, 0.0), STEM: ((92, 104, 40), 0.75, 0.0),
     DARK: ((14, 12, 16), 0.9, 0.0), CLOTH: ((60, 34, 78), 0.85, 0.0), STRAW: ((205, 160, 80), 0.8, 0.0),
     IRON: ((70, 66, 62), 0.45, 1.0), INSIDE: ((255, 170, 60), 0.6, 0.0),
+    # v2 (Blender models)
+    BLUSH: ((240, 150, 165), 0.6, 0.0), WHITE: ((250, 250, 250), 0.25, 0.0), ROPE: ((176, 132, 78), 0.9, 0.0),
+    WAX: ((246, 236, 214), 0.55, 0.0), CANDY0: ((232, 40, 110), 0.3, 0.0), CANDY1: ((60, 180, 235), 0.3, 0.0),
+    CANDY2: ((245, 220, 60), 0.3, 0.0), CANDY3: ((120, 225, 80), 0.3, 0.0), CANDY4: ((160, 60, 230), 0.3, 0.0),
 }
+SWATCH = {n: i for i, n in enumerate(["BONE", "PUMPKIN", "STEM", "DARK", "CLOTH", "STRAW", "IRON", "INSIDE", "BLUSH", "WHITE",
+                                      "ROPE", "WAX", "CANDY0", "CANDY1", "CANDY2", "CANDY3", "CANDY4"])}
 
 V = lambda *a: np.array(a, float)
 def length(p): return np.sqrt((p * p).sum(-1))

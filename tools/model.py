@@ -57,14 +57,15 @@ def strip(levels, rgb):
 def strip_uv(): return np.array([(CELL / 2) / (CELL * FRAMES), 0.5])
 
 # ---------------------------------------------------------------- palette (LIT) + ghost textures
+PAL_N = 32                                                  # swatches in the palette strip (power of two: 256 texels wide)
 PAL_W = 8                                                   # each swatch 8x8 texels
 def palette_images():
-    n = len(D.PALETTE); dif = np.zeros((8, PAL_W * n, 3), np.uint8); msk = np.zeros((8, PAL_W * n, 3), np.uint8)
+    n = PAL_N; dif = np.zeros((8, PAL_W * n, 3), np.uint8); msk = np.zeros((8, PAL_W * n, 3), np.uint8)
     for i, (rgb, rough, metal) in D.PALETTE.items():
         dif[:, i * PAL_W:(i + 1) * PAL_W] = rgb
         msk[:, i * PAL_W:(i + 1) * PAL_W] = (int(rough * 255), int(metal * 255), 0)
     return Image.fromarray(dif), Image.fromarray(msk)
-def swatch_uv(i): return np.array([(i * PAL_W + PAL_W / 2) / (PAL_W * len(D.PALETTE)), 0.5])
+def swatch_uv(i): return np.array([(i * PAL_W + PAL_W / 2) / (PAL_W * PAL_N), 0.5])
 
 def ghost_image():
     r = np.random.default_rng(5); W = 64
@@ -179,22 +180,22 @@ def particles():
     out = OUT + "build/shared/"
     # HAZE: soft green cloud puffs drifting low around the figurine (from the ghost ship's CloudGlow)
     h = open(C.mxml_of(C.GHOSTFX + "cloudglow.particle.mbin")).read()
-    h = _set(h, "MaxCount", "24")
-    h = _float_prop(h, "EmissionRate", fixed=2.2)
-    h = _float_prop(h, "ParticleLife", lo=4.0, hi=6.0)
+    h = _set(h, "MaxCount", "64")
+    h = _float_prop(h, "EmissionRate", fixed=6.0)
+    h = _float_prop(h, "ParticleLife", lo=4.0, hi=7.0)
     h = _float_prop(h, "ParticleSpeedMultiplier", authoring="RandomRangeFloat", lo=0.004, hi=0.012)
-    h = _vec(h, "SpawnOffsetParams", (0.0, 0.0, 0.045))
-    h = _float_prop(h, "GeneralSize", lo=0.035, hi=0.06, fixed=0.05)
-    h = _colour(h, "ColourStart", (0.40, 0.95, 0.62, 0.0)); h = _colour(h, "ColourMiddle", (0.40, 0.95, 0.62, 0.55)); h = _colour(h, "ColourEnd", (0.30, 0.80, 0.55, 0.0))
+    h = _vec(h, "SpawnOffsetParams", (0.0, 0.0, 0.10))     # wider than the figurines, so it shows around them
+    h = _float_prop(h, "GeneralSize", lo=0.05, hi=0.09, fixed=0.07)
+    h = _colour(h, "ColourStart", (0.40, 0.95, 0.62, 0.0)); h = _colour(h, "ColourMiddle", (0.40, 0.95, 0.62, 0.8)); h = _colour(h, "ColourEnd", (0.30, 0.80, 0.55, 0.0))
     # MOTES: little glowing sparks rising slowly (from the ghost ship's Plasma)
     p = open(C.mxml_of(C.GHOSTFX + "plasma.particle.mbin")).read()
-    p = _set(p, "MaxCount", "20")
-    p = _float_prop(p, "EmissionRate", fixed=2.5)
+    p = _set(p, "MaxCount", "80")
+    p = _float_prop(p, "EmissionRate", fixed=10.0)
     p = _float_prop(p, "ParticleLife", lo=3.0, hi=5.0)
-    p = _float_prop(p, "ParticleSpeedMultiplier", authoring="RandomRangeFloat", lo=0.01, hi=0.025)
-    p = _vec(p, "SpawnOffsetParams", (0.0, 0.0, 0.05))
-    p = _float_prop(p, "GeneralSize", authoring="RandomRangeFloat", lo=0.003, hi=0.006, fixed=0.005)
-    p = _colour(p, "ColourMiddle", (0.55, 1.0, 0.75, 0.9))
+    p = _float_prop(p, "ParticleSpeedMultiplier", authoring="RandomRangeFloat", lo=0.015, hi=0.035)
+    p = _vec(p, "SpawnOffsetParams", (0.0, 0.0, 0.10))
+    p = _float_prop(p, "GeneralSize", authoring="RandomRangeFloat", lo=0.006, hi=0.011, fixed=0.008)
+    p = _colour(p, "ColourMiddle", (0.55, 1.0, 0.70, 1.0))
     for name, txt in (("HAZE", h), ("MOTES", p)):
         txt = _set(txt, "Minimum", "0.000000"); txt = _set(txt, "Maximum", "0.000000")          # CameraDistanceFade off (as the cockpit's own smoke)
         # soft-particle fade: alpha scales with (depth behind the particle) x strength. The ghost ship's 0.1 is for 100 m clouds;

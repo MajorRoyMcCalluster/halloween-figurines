@@ -1,0 +1,65 @@
+=====================================================================
+ NEXUS MODS UPLOAD SHEET  -  Halloween Figurines  v1.0.0
+ Copy each field into the matching box on the Nexus upload form.
+=====================================================================
+
+MOD NAME
+Halloween Figurines - Boo, Skelly and Pumpkin-Head
+
+VERSION
+1.0.0
+
+AUTHOR
+MajorRoyMcCalluster
+
+ADULT CONTENT
+No
+
+CATEGORY
+Pick the closest models/visuals or ships category the site offers for No Man's Sky.
+
+LANGUAGE
+English
+
+REQUIREMENTS
+None. (Optional: works alongside Box-Bot - Cockpit Robot Figurine.)
+
+PERMISSIONS (suggested)
+- Upload to other sites: No, unless asked
+- Modify / reupload as part of another mod: Ask first
+- Convert to other games: No
+- Use assets in your own files: Ask first
+- Credit: MBINCompiler and HGPAKtool authors (tools used to build it)
+
+TAGS
+Cockpit, Ships, Models, Bobblehead, Figurine, Decoration, Halloween, New Item
+
+---------------------------------------------------------------------
+BRIEF OVERVIEW / SUMMARY  (under 350 characters)
+---------------------------------------------------------------------
+Three new Halloween cockpit figurines from the Quicksilver shop: Boo the sheet ghost, Skelly the skeleton on a jack-o'-lantern, and Pumpkin-Head the cloaked scarecrow. Flickering candle-lit pumpkins, glowing eyes and the cursed-frigate green haze swirling around the dash. Nothing is replaced.
+
+---------------------------------------------------------------------
+DESCRIPTION
+---------------------------------------------------------------------
+Paste the contents of description_bbcode.txt.
+
+---------------------------------------------------------------------
+MAIN FILE  (Files tab)
+---------------------------------------------------------------------
+File name:     Halloween Figurines
+Version:       1.0.0
+Category:      Main files
+Upload:        dist/Halloween Figurines-1.0.0.zip
+Description:   Extract the HalloweenFigurines folder into No Man's Sky\GAMEDATA\MODS. Shop-overhaul users: see Compatibility.
+
+---------------------------------------------------------------------
+IMAGES  (Images tab - set 00_header.png as the primary image)
+---------------------------------------------------------------------
+images/00_header.png                 Primary image (all three)
+images/nexus_banner_2000x576.png     Page banner (Nexus "header image", 2000x576)
+images/01_ghost.png                  Boo
+images/02_skeleton.png               Skelly
+images/03_pumpkinhead.png            Pumpkin-Head
+images/04-06_shop_*.png              The Quicksilver shop pictures
+(Add an in-game cockpit screenshot or two once you have them - they sell a mod best.)

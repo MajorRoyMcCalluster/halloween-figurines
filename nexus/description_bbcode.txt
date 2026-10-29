@@ -1,0 +1,33 @@
+[center][size=6][b]Halloween Figurines[/b][/size]
+[size=4]Boo, Skelly and Pumpkin-Head for your cockpit dashboard[/size][/center]
+
+Three [b]new[/b] cockpit figurines in the Quicksilver shop. None of the game's figurines are replaced.
+
+[list]
+[*][b]Boo[/b] - a see-through sheet ghost waving hello, with a glowing jack-o'-lantern pail of sweets
+[*][b]Skelly[/b] - a little skeleton sitting on a big grinning jack-o'-lantern, eyes glowing cursed green
+[*][b]Pumpkin-Head[/b] - a scarecrow in a tattered cloak with an angry carved head, straw hands and a lit lantern
+[/list]
+
+Every figurine comes with little carved jack-o'-lanterns whose candles flicker, and a [b]cursed green haze[/b] with glowing motes rolling around the dashboard. It's the same ghost-light the game uses on its haunted frigates, shrunk down to fit your cockpit. The heads wobble like the game's own figurines.
+
+[size=4][b]Install[/b][/size]
+[list=1]
+[*]Extract the [b]HalloweenFigurines[/b] folder into [i]No Man's Sky\GAMEDATA\MODS\[/i]
+[*]Buy the figurines for 3,200 Quicksilver each from the Quicksilver Synthesis Companion on the Space Anomaly.
+[*]Install one in your starship's inventory like any other figurine.
+[/list]
+
+[size=4][b]Compatibility[/b][/size]
+[list]
+[*]Shop, technology, reward and product changes are merge files that only [b]add[/b] entries, so other mods that change those tables keep working.
+[*]Shop overhauls that replace the whole Quicksilver list (such as ~Consumerism) must load [b]before[/b] this mod: in [i]Binaries\SETTINGS\GCMODSETTINGS.MXML[/i] give HALLOWEENFIGURINES a lower ModPriority number (the lowest number loads last and wins).
+[*]The cockpit figurine list is a complete file. It also includes the figurines from [b]Box-Bot - Cockpit Robot Figurine[/b], so the two mods work together. Other mods that replace the figurine list will conflict.
+[*]Other players without the mod won't see the figurines.
+[/list]
+
+[size=4][b]Source[/b][/size]
+Blender models and build tools: [url=https://github.com/MajorRoyMcCalluster/halloween-figurines]github.com/MajorRoyMcCalluster/halloween-figurines[/url]
+
+[size=4][b]Credits[/b][/size]
+Built with MBINCompiler and HGPAKtool by the NMS modding community. Happy Halloween!

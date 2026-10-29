@@ -1,5 +1,5 @@
 """Signed-distance parts -> game-ready triangle meshes (marching cubes), in metres."""
-import numpy as np
+import numpy as np, os, pickle
 from skimage.measure import marching_cubes
 import designs as D
 
@@ -27,7 +27,22 @@ def mesh_part(fn, lo, hi, step):
 FINE = {"bones": 0.0055, "straw": 0.0045, "iron": 0.0035, "teeth": 0.004, "eyes": 0.006, "dark": 0.005, "stem": 0.006,
         "flame": 0.006, "features": 0.005}
 
+V2_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "design")
+def figure_v2(key):
+    """v2: the figurine modelled in Blender (design/halloween_v2.blend), exported by its hw_export script to
+    design/v2_<key>.pkl: parts already in metres and game axes (+Y up, -Z front, pedestal-top origin)"""
+    d = pickle.load(open(os.path.join(V2_DIR, f"v2_{key}.pkl"), "rb"))
+    out = {}
+    for group, kind, sw, P, N, I in d["parts"]:
+        P = P.astype(np.float64); N = N.astype(np.float64); I = np.asarray(I, np.int64)
+        fn = np.cross(P[I[:, 1]] - P[I[:, 0]], P[I[:, 2]] - P[I[:, 0]])
+        keep = np.linalg.norm(fn, axis=1) > 1e-16; I = I[keep]; fn = fn[keep]
+        flip = (fn * N[I].mean(1)).sum(1) < 0; I = I.copy(); I[flip] = I[flip][:, [0, 2, 1]]
+        out.setdefault((group, kind), []).append((P, N, I, D.SWATCH[sw] if sw else 0))
+    return out, d["pivot"]
+
 def figure(key, step=0.011):
+    if os.path.isfile(os.path.join(V2_DIR, f"v2_{key}.pkl")): return figure_v2(key)
     """{(group, kind): [(P, N, I, swatch), ...]} in metres (pedestal-top origin), and the pivot height in metres"""
     parts, pivot = D.BUILD[key]()
     out = {}
