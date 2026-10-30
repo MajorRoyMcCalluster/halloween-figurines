@@ -34,7 +34,7 @@ for f in FIGS:
     assert len(f["scene"]) <= 16 and all(len(f[k]) <= 15 for k in ("tech", "product", "reward")), f
 
 # other figurines of ours that share the game's figurine list (it ships as one complete file in each mod)
-OTHER_FIGURINES = [("T_BOBBLE_BOXBOT", "BOXBOTBOBBLEHEAD"), ("T_BOBBLE_BOXTRV", "BOXBOTTRAVELLER")]
+OTHER_FIGURINES = [("T_BOBBLE_BOXBOT", "BOXBOTBOBBLEHEAD"), ("T_BOBBLE_BOXTRV", "BOXBOTTRAVELLER"), ("T_BOBBLE_WRETCH", "WRETCHBOBBLE")]
 
 # ---- the game figurine whose scene we start from (its joints, wobble set-up and pedestal are reused)
 TEMPLATE = dict(

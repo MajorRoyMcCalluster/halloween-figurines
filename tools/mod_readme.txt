@@ -26,8 +26,8 @@ COMPATIBILITY
     Quicksilver list (e.g. ~Consumerism), this mod must load AFTER it: in Binaries\SETTINGS\GCMODSETTINGS.MXML
     give HALLOWEENFIGURINES a LOWER ModPriority number than that mod (the lowest number loads last and wins).
   - The cockpit figurine list (BOBBLEHEADCUSTOMISATIONDATA.MBIN) is a complete file. It already includes
-    the Box-Bot figurine from the Cockpit Robot mod, so the two work together. Other mods that replace the
-    figurine list will conflict.
+    the Box-Bot figurines from my Cockpit Robot mod and the Wretch from my Wretch Figurine mod, so they all
+    work together. Other mods that replace the figurine list will conflict.
   - Multiplayer: other players without the mod won't see the figurines.
   - Names and descriptions are in English and US English.
 
