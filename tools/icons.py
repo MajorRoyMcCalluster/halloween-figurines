@@ -1,11 +1,11 @@
-"""Shop icons (256x256, transparent) and hero images (512x360) for the three figurines, rendered from the built meshes."""
+"""Shop icons (256x256, transparent) and hero images (512x360) for the figurines, rendered from the built meshes."""
 import numpy as np, os, sys
 from PIL import Image, ImageDraw, ImageFilter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import render as RD, model as M, common as C
 
 GREEN = (90, 255, 130)
-FOCUS = {"ghost": 0.072, "skeleton": 0.076, "pumpkinhead": 0.074}
+FOCUS = {"ghost": 0.072, "lanternjack": 0.088}
 
 def fig_rgba(key, W, H, ppu):
     img, cov = RD.render(key, W=W, H=H, yaw=20, pitch=-9, ppu=ppu, focus_y=FOCUS[key], bg=(0, 0, 0))

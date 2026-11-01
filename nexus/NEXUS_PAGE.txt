@@ -4,7 +4,7 @@
 =====================================================================
 
 MOD NAME
-Halloween Figurines - Boo, Skelly and Pumpkin-Head
+Halloween Figurines - Boo and Lantern Jack
 
 VERSION
 1.0.0
@@ -35,14 +35,9 @@ TAGS
 Cockpit, Ships, Models, Bobblehead, Figurine, Decoration, Halloween, New Item
 
 ---------------------------------------------------------------------
-BRIEF OVERVIEW / SUMMARY  (under 350 characters)
+BRIEF OVERVIEW / SUMMARY  (the short line under the title, under 350 characters)
 ---------------------------------------------------------------------
-Three new Halloween cockpit figurines from the Quicksilver shop: Boo the sheet ghost, Skelly the skeleton on a jack-o'-lantern, and Pumpkin-Head the cloaked scarecrow. Flickering candle-lit pumpkins, glowing eyes and the cursed-frigate green haze swirling around the dash. Nothing is replaced.
-
----------------------------------------------------------------------
-DESCRIPTION
----------------------------------------------------------------------
-Paste the contents of description_bbcode.txt.
+Two new Halloween cockpit figurines from the Quicksilver shop: Boo the sheet ghost with a pail of sweets, and Lantern Jack, a pumpkin-headed skeleton holding up a glowing lantern. Flickering candle-lit pumpkins and the cursed-frigate green haze rolling round the dash. Nothing is replaced.
 
 ---------------------------------------------------------------------
 MAIN FILE  (Files tab)
@@ -50,16 +45,82 @@ MAIN FILE  (Files tab)
 File name:     Halloween Figurines
 Version:       1.0.0
 Category:      Main files
-Upload:        dist/Halloween Figurines-1.0.0.zip
+Upload:        Halloween Figurines-1.0.0.zip
 Description:   Extract the HalloweenFigurines folder into No Man's Sky\GAMEDATA\MODS. Shop-overhaul users: see Compatibility.
 
 ---------------------------------------------------------------------
-IMAGES  (Images tab - set 00_header.png as the primary image)
+IMAGES  (Images tab - set images/00_header.png as the primary image)
 ---------------------------------------------------------------------
-images/00_header.png                 Primary image (all three)
-images/nexus_banner_2000x576.png     Page banner (Nexus "header image", 2000x576)
-images/01_ghost.png                  Boo
-images/02_skeleton.png               Skelly
-images/03_pumpkinhead.png            Pumpkin-Head
-images/04-06_shop_*.png              The Quicksilver shop pictures
+images/00_header.png               Primary image / thumbnail (both figurines, 16:9)
+images/nexus_banner_2000x576.png   Header banner (Manage > Media > Header)
+images/01_ghost.png                Boo
+images/02_lanternjack.png          Lantern Jack
+images/04_shop_boo.png             Boo's Quicksilver shop picture
+images/05_shop_lanternjack.png     Lantern Jack's Quicksilver shop picture
 (Add an in-game cockpit screenshot or two once you have them - they sell a mod best.)
+
+---------------------------------------------------------------------
+DESCRIPTION  (paste everything between the lines into the Description box; it's BBCode)
+---------------------------------------------------------------------
+[center][size=6][color=#ff8a1f][b]HALLOWEEN FIGURINES[/b][/color][/size]
+[size=3][i]A sheet ghost and a lantern-bearing pumpkin-head for your dashboard.[/i][/size][/center]
+
+[line]
+
+[size=4][color=#ff8a1f][b]What it does[/b][/color][/size]
+Adds two [b]new[/b] cockpit figurines to the Quicksilver shop. None of the game's figurines are replaced. They sit on the usual glowing figurine pedestal on your dashboard, and their heads wobble on the figurine's bobble joint as your ship moves.
+
+[list]
+[*][b]Boo[/b] - a see-through sheet ghost waving hello, with a glowing jack-o'-lantern pail of sweets
+[*][b]Lantern Jack[/b] - a skeleton with a grinning jack-o'-lantern head, holding up a glowing lantern and leaning on a crooked staff
+[*]Candle-lit jack-o'-lanterns that flicker
+[*]A [b]cursed green haze[/b] with glowing motes rolling round the dash - the ghost-light the game uses on its haunted frigates, shrunk to cockpit size
+[*]Original models and textures, built from scratch for this mod
+[/list]
+
+[size=4][color=#ff8a1f][b]Requirements[/b][/color][/size]
+[list]
+[*]No other mods needed
+[*]3,200 Quicksilver per figurine, spent at the [b]Quicksilver Synthesis Companion[/b] on the Space Anomaly
+[/list]
+
+[size=4][color=#ff8a1f][b]Installation[/b][/color][/size]
+[list=1]
+[*]Extract the [b]HalloweenFigurines[/b] folder into [b]No Man's Sky\GAMEDATA\MODS\[/b] (create the MODS folder if you don't have one).
+[*]Buy the figurines from the Quicksilver Synthesis Companion on the Space Anomaly (near the end of the shop).
+[*]Install one in your starship's inventory like any other figurine. Your cockpit shows one figurine at a time.
+[/list]
+
+[size=4][color=#ff8a1f][b]Uninstalling[/b][/color][/size]
+Remove the figurines from your ship first, then delete the [b]HalloweenFigurines[/b] folder.
+
+[size=4][color=#ff8a1f][b]Compatibility[/b][/color][/size]
+[list]
+[*][b]New items only[/b] - the shop, technology, reward and product changes are merge files that only [b]add[/b] entries, so other mods that change those tables keep working.
+[*][b]Shop overhauls[/b] that replace the whole Quicksilver list (such as ~Consumerism) must load [b]before[/b] this mod: in [b]Binaries\SETTINGS\GCMODSETTINGS.MXML[/b] give HALLOWEENFIGURINES a lower ModPriority number (the lowest number loads last and wins).
+[*][b]Conflicts[/b] with other mods that replace the cockpit figurine list. It already includes the figurines from [b]Box-Bot - Cockpit Robot Figurine[/b], so the two work together.
+[*][b]Multiplayer[/b] - other players without the mod won't see the figurines.
+[*]Names and descriptions are in English and US English.
+[/list]
+
+[size=4][color=#ff8a1f][b]FAQ[/b][/color][/size]
+[b]I can't find them in the shop.[/b]
+They're near the end of the Quicksilver Synthesis Companion's list. If you use a shop overhaul, check the load order above, then restart the game.
+
+[b]The figurine vanished from my ship.[/b]
+The mod isn't loading (or was removed), so the game drops items it doesn't know. Check the folder path is GAMEDATA\MODS\HalloweenFigurines\METADATA... (not MODS\HalloweenFigurines\HalloweenFigurines\...), then buy it again.
+
+[size=4][color=#ff8a1f][b]Source[/b][/color][/size]
+Blender models and build tools: [url=https://github.com/MajorRoyMcCalluster/halloween-figurines]github.com/MajorRoyMcCalluster/halloween-figurines[/url]
+
+[size=4][color=#ff8a1f][b]Credits[/b][/color][/size]
+[list]
+[*]Built with [b]MBINCompiler[/b] (monkeyman192 and the NMS modding community) and [b]HGPAKtool[/b].
+[*]Hello Games for No Man's Sky.
+[/list]
+
+[center][size=2][i]Endorse if it gave you a fright in a dogfight.[/i][/size][/center]
+---------------------------------------------------------------------
+
+CHANGELOG  (Logs tab)
+(empty - add an entry only for a release we agree to publish)

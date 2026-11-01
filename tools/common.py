@@ -12,22 +12,18 @@ PRICE_QS = 3200                                  # Quicksilver, same as the game
 SHOP_NUMBER, MISSION_TIER = 1, -1                # first shop page, no tier requirement
 BONUS = ("Ship_Launcher_TakeOffCost", "0.900000")
 
-# ---- the three new figurines (scene ids: 16 characters max; item ids: 15 max)
+# ---- the new figurines (scene ids: 16 characters max; item ids: 15 max)
 FIGS = [
     dict(key="ghost", scene="HWGHOSTBOBBLE", tech="T_BOBBLE_GHOST", product="BOBBLE_GHOST", reward="R_BOBBLE_GHOST",
          icon="BOBBLEGHOST", name="BOO FIGURINE", name_l="Boo Figurine",
          desc="A little sheet ghost, glowing faintly, waving hello and carrying a jack-o'-lantern pail of sweets. A cursed green haze "
               "drifts around it, the same ghost-light that clings to haunted frigates.\n\nInstall to an "
               "<TECHNOLOGY>Inventory Slot<> to decorate your ship's interior."),
-    dict(key="skeleton", scene="HWSKELBOBBLE", tech="T_BOBBLE_SKELLY", product="BOBBLE_SKELLY", reward="R_BOBBLE_SKELLY",
-         icon="BOBBLESKELLY", name="SKELLY FIGURINE", name_l="Skelly Figurine",
-         desc="A cheerful skeleton perched on a carved pumpkin, waving hello with eyes that glow cursed green. "
-              "Its oversized skull nods along with every manoeuvre.\n\nInstall to an <TECHNOLOGY>Inventory Slot<> to "
-              "decorate your ship's interior."),
-    dict(key="pumpkinhead", scene="HWPUMPKBOBBLE", tech="T_BOBBLE_PUMPKN", product="BOBBLE_PUMPKN", reward="R_BOBBLE_PUMPKN",
-         icon="BOBBLEPUMPKN", name="PUMPKIN-HEAD FIGURINE", name_l="Pumpkin-Head Figurine",
-         desc="A cloaked wanderer with a jack-o'-lantern for a head, straw for fingers and a lantern to light the way "
-              "between the stars.\n\nInstall to an <TECHNOLOGY>Inventory Slot<> to decorate your ship's interior."),
+    dict(key="lanternjack", scene="HWJACKBOBBLE", tech="T_BOBBLE_JACK", product="BOBBLE_JACK", reward="R_BOBBLE_JACK",
+         icon="BOBBLEJACK", name="LANTERN JACK FIGURINE", name_l="Lantern Jack Figurine",
+         desc="A skeleton with a grinning jack-o'-lantern for a head, holding up a glowing lantern to light the way "
+              "between the stars and leaning on a crooked staff. Its pumpkin head nods along with every manoeuvre."
+              "\n\nInstall to an <TECHNOLOGY>Inventory Slot<> to decorate your ship's interior."),
 ]
 for f in FIGS:
     f["keys"] = ("UI_" + f["product"] + "_NAME", "UI_" + f["product"] + "_NAME_L", "UI_" + f["product"] + "_DESC")

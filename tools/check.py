@@ -47,6 +47,9 @@ def run(m):
         for (grp, kind, P, N, I, vc, piv) in meshes:
             check(len(P) < 65536 and I.max() < len(P) and np.isfinite(P).all() and np.isfinite(N).all(), f"{sc} {grp} {kind} mesh")
             check(P[:, 1].min() > -0.002 and P[:, 1].max() < 0.2 and np.abs(P[:, [0, 2]]).max() < 0.085, f"{sc} {grp} {kind} outside the pedestal area")
+        # vertex budget: a 42k-vertex mesh on the Box-Bot Traveller filled the whole screen with red shards in game
+        check(all(len(m[2]) <= 20000 for m in meshes), f"{sc}: a mesh is over 20,000 vertices")
+        check(sum(len(m[2]) for m in meshes) <= 32000, f"{sc}: over 32,000 vertices in total")
     # game-data merge files
     ours = set()
     for f in C.FIGS: ours |= {f["tech"], f["product"], f["reward"], *f["keys"]}
