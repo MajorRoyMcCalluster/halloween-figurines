@@ -24,7 +24,11 @@ def render(key, W=420, H=520, yaw=25, pitch=-10, ppu=2400, focus_y=0.075, glow=1
     meshes = load(key)
     Rm = rot(yaw, pitch); zb = np.full((H, W), -9.0); col = np.zeros((H, W, 3)); emi = np.zeros((H, W, 3))
     L = np.array([-0.5, 0.75, -0.6]); L /= np.linalg.norm(L)
-    for (group, kind, P, N, I, vc, piv) in meshes:
+    for (group, kind, P, N, I, vc, piv, *rest) in meshes:
+        UV = rest[0] if rest else None
+        tex = None
+        if UV is not None:
+            import model as _M; tex = _M.jack_texture(kind); th, tw = tex.shape[:2]
         P = P.copy()
         if group == "head" and wob:
             a = math.radians(wob); Rz = np.array([[math.cos(a), -math.sin(a), 0], [math.sin(a), math.cos(a), 0], [0, 0, 1]])
@@ -35,6 +39,8 @@ def render(key, W=420, H=520, yaw=25, pitch=-10, ppu=2400, focus_y=0.075, glow=1
         rim = (1 - np.clip(-Nq[:, 2], 0, 1)) ** 2.5
         if kind in EMIT:
             c = np.tile(np.array(KIND_COL[kind]) * (glow if kind == D.GLOW else flicker), (len(P), 1)); e = c
+        elif kind == D.GLOWTEX:
+            c = vc; e = vc * 0.6
         elif kind == D.GHOST:
             c = np.array(KIND_COL[kind]) * lit[:, None] * 0.75 + rim[:, None] * np.array([0.4, 0.75, 0.6]) * 0.9; e = rim[:, None] * np.array([0.2, 0.5, 0.35])
         else:
@@ -58,7 +64,12 @@ def render(key, W=420, H=520, yaw=25, pitch=-10, ppu=2400, focus_y=0.075, glow=1
             if not upd.any(): continue
             sub[upd] = zz[upd]
             cv = w0[..., None] * c[a] + w1[..., None] * c[b] + w2[..., None] * c[cc]
+            if tex is not None:                                  # textured kinds: sample the texture per pixel
+                u_ = w0 * UV[a, 0] + w1 * UV[b, 0] + w2 * UV[cc, 0]; v_ = w0 * UV[a, 1] + w1 * UV[b, 1] + w2 * UV[cc, 1]
+                tc = tex[np.clip((v_ * th).astype(int), 0, th - 1), np.clip((u_ * tw).astype(int), 0, tw - 1)]
+                cv = tc * (1.0 if kind == D.GLOWTEX else (w0[..., None] * lit[a] + w1[..., None] * lit[b] + w2[..., None] * lit[cc]))
             ev = w0[..., None] * e[a] + w1[..., None] * e[b] + w2[..., None] * e[cc]
+            if tex is not None: ev = tc * 0.6 if kind == D.GLOWTEX else np.zeros_like(cv)
             col[ya:yb + 1, xa:xb + 1][upd] = cv[upd]; emi[ya:yb + 1, xa:xb + 1][upd] = ev[upd]
     img = np.where((zb > -9)[..., None], col, np.array(bg))
     gi = Image.fromarray((np.clip(emi, 0, 1) * 255).astype(np.uint8))

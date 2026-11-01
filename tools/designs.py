@@ -12,6 +12,8 @@ import numpy as np
 
 S = 0.18
 LIT, CANDLE, GLOW, GHOST = "LIT", "CANDLE", "GLOW", "GHOST"
+BONETEX, GLOWTEX = "BONETEX", "GLOWTEX"      # Lantern Jack: baked haunted bone, and its unlit glowing cracks
+TEXTURED = (BONETEX, GLOWTEX)                  # kinds that carry their own UVs from Blender
 # palette swatches for LIT
 BONE, PUMPKIN, STEM, DARK, CLOTH, STRAW, IRON, INSIDE, BLUSH, WHITE, ROPE, WAX, CANDY0, CANDY1, CANDY2, CANDY3, CANDY4 = range(17)
 PALETTE = {  # sRGB colour, roughness, metallic

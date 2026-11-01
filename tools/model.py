@@ -5,7 +5,8 @@ Mesh slots (the template's mesh names are kept so the scene's name-hash links st
   head (wobbles on Headjnt):  POLOHEAD, SUB1..SUB3POLOHEAD          one per material kind used by the head
   body (static):              POLOMODEL, SUB1..SUB5POLOMODEL        one per material kind used by the body
                               SUB6, SUB7 the game's pedestal and its green glow ring (kept)
-Material kinds: LIT (palette: bone, pumpkin, ...), CANDLE (flickering), GLOW (pulsing green), GHOST (translucent).
+Material kinds: LIT (palette: bone, pumpkin, ...), CANDLE (flickering), GLOW (pulsing green), GHOST (translucent),
+BONETEX (Lantern Jack's baked bone) and GLOWTEX (its cracks, unlit, so they glow in a dark cockpit).
 """
 import numpy as np, re, base64, os, sys, copy, struct, math
 import xml.etree.ElementTree as ET
@@ -17,7 +18,7 @@ T = C.TEMPLATE
 OUT = os.path.join(C.WORK, "out") + os.sep
 HEAD_SLOTS = ["POLOHEAD", "SUB1POLOHEAD", "SUB2POLOHEAD", "SUB3POLOHEAD"]
 BODY_SLOTS = ["POLOMODEL", "SUB1POLOMODEL", "SUB2POLOMODEL", "SUB3POLOMODEL", "SUB4POLOMODEL", "SUB5POLOMODEL"]
-KINDS = [D.LIT, D.GHOST, D.CANDLE, D.GLOW]
+KINDS = [D.LIT, D.GHOST, D.CANDLE, D.GLOW, D.BONETEX, D.GLOWTEX]
 
 SCENE_DIR = "MODELS\\PLANETS\\BIOMES\\COMMON\\BUILDINGS\\PROPS\\BOBBLEHEADS\\"
 SHARED_DIR = SCENE_DIR + "HWFSHARED\\"                     # materials + particles shared by all three figurines
@@ -100,6 +101,33 @@ def textures():
     mip_dds(strip(candle_levels(), CANDLE_RGB), "DXT1", t + "_CANDLE.DDS", mips=False)
     mip_dds(strip(glow_levels(), GLOW_RGB), "DXT1", t + "_GLOW.DDS", mips=False)
     strip(candle_levels(), CANDLE_RGB).resize((CELL * FRAMES, 32), Image.NEAREST).save(OUT + "preview_candle_strip.png")
+    j = jack_images()
+    mip_dds(j["diffuse"], "DXT1", t + "_JACKBONE.DDS"); mip_dds(j["normal"], "ATI2", t + "_JACKBONE.NORMAL.DDS")
+    mip_dds(j["masks"], "ATI2", t + "_JACKBONE.MASKS.DDS"); mip_dds(j["crack"], "DXT1", t + "_JACKCRACK.DDS")
+
+# ---------------------------------------------------------------- Lantern Jack's baked bone (design/bake/jack_*.png, from hw_jackbone)
+BAKE = os.path.join(C.REPO, "design", "bake")
+GLOW_BONE = 0.35                                            # how much bone shows through the unlit cracks under cockpit light
+def _bake(tag): return np.asarray(Image.open(os.path.join(BAKE, f"jack_{tag}.png")).convert("RGB")).astype(np.float32) / 255
+def jack_images():
+    dif = _bake("diffuse"); glow = _bake("glow")
+    lin = lambda a: a ** 2.2; srgb = lambda a: np.clip(a, 0, 1) ** (1 / 2.2)
+    crack = srgb(lin(dif) * GLOW_BONE + lin(glow))           # the cracks' unlit colour: dim bone plus the green glow
+    to8 = lambda a: Image.fromarray((np.clip(a, 0, 1) * 255 + 0.5).astype(np.uint8))
+    n = _bake("normal"); r = _bake("rough")[..., 0]
+    return dict(diffuse=to8(dif), crack=to8(crack), normal=to8(np.dstack([n[..., 0], n[..., 1], np.zeros_like(r)])),
+                masks=to8(np.dstack([r, np.zeros_like(r), np.zeros_like(r)])))
+_JACK = {}
+def jack_texture(kind):
+    """the image the game shows on a textured kind (linear float), for the preview / shop renders"""
+    if not _JACK: _JACK.update({k: np.asarray(v).astype(np.float32) / 255 for k, v in jack_images().items()})
+    return _JACK["diffuse" if kind == D.BONETEX else "crack"] ** 2.2
+def jack_vertex_colour(kind, uv):
+    """per-vertex colour for the preview / shop renders (linear)"""
+    if not _JACK: _JACK.update({k: np.asarray(v).astype(np.float32) / 255 for k, v in jack_images().items()})
+    im = _JACK["diffuse" if kind == D.BONETEX else "crack"]; h, w = im.shape[:2]
+    x = np.clip((uv[:, 0] * w).astype(int), 0, w - 1); y = np.clip((uv[:, 1] * h).astype(int), 0, h - 1)
+    return im[y, x] ** 2.2
 
 # ---------------------------------------------------------------- materials
 def _rename(m, name):
@@ -141,6 +169,15 @@ def materials():
     g = _sampler(g, "gNormalMap", Map=t + "_FLAT.NORMAL.DDS")
     g = g.replace('<Property name="CastShadow" value="true" />', '<Property name="CastShadow" value="false" />')
     out[D.GHOST] = _rename(g, f"{C.PREFIX}_GHOST_MAT")
+    m = rd(C.COCKPIT + "plasticgrain_mat.material.mbin")
+    m = _sampler(m, "gDiffuseMap", Map=t + "_JACKBONE.DDS"); m = _sampler(m, "gMasksMap", Map=t + "_JACKBONE.MASKS.DDS")
+    m = _sampler(m, "gNormalMap", Map=t + "_JACKBONE.NORMAL.DDS")
+    out[D.BONETEX] = _rename(m, f"{C.PREFIX}_{D.BONETEX}_MAT")
+    u = rd("models/planets/biomes/common/rareresource/ground/robotheads/warningscreen_mat.material.mbin")
+    u = _drop_flag(u, "_F13_UV_EFFECT")                        # a plain unlit texture, no flipbook
+    u = _sampler(u, "gDiffuseMap", Map=t + "_JACKCRACK.DDS")
+    u = u.replace('<Property name="CastShadow" value="true" />', '<Property name="CastShadow" value="false" />')
+    out[D.GLOWTEX] = _rename(u, f"{C.PREFIX}_{D.GLOWTEX}_MAT")
     for kind, fps in ((D.CANDLE, CANDLE_FPS), (D.GLOW, GLOW_FPS)):
         u = rd("models/planets/biomes/common/rareresource/ground/robotheads/warningscreen_mat.material.mbin")
         u = _sampler(u, "gDiffuseMap", Map=t + f"_{kind}.DDS", UseMipMaps="false", TextureFilterMode="Bilinear")
@@ -239,13 +276,14 @@ def build_meshes(key):
         assert len(kinds) <= len(slot_names), (key, grp, kinds)
         for kind, slot in zip(kinds, slot_names):
             Ps, Ns, UVs, Is, VC = [], [], [], [], []; off = 0
-            for (P, N, I, sw) in parts[(grp, kind)]:
-                if kind == D.LIT: uv = np.tile(swatch_uv(sw), (len(P), 1)); vc = np.tile((np.array(D.PALETTE[sw][0]) / 255) ** 2.2, (len(P), 1))
+            for (P, N, I, sw, *uvs) in parts[(grp, kind)]:
+                if kind in D.TEXTURED: uv = uvs[0]; vc = jack_vertex_colour(kind, uv)
+                elif kind == D.LIT: uv = np.tile(swatch_uv(sw), (len(P), 1)); vc = np.tile((np.array(D.PALETTE[sw][0]) / 255) ** 2.2, (len(P), 1))
                 elif kind == D.GHOST: uv = cyl_uv(P); vc = np.ones((len(P), 3))
                 else: uv = np.tile(strip_uv(), (len(P), 1)); vc = np.ones((len(P), 3))
                 Ps.append(P); Ns.append(N); UVs.append(uv); Is.append(I + off); VC.append(vc); off += len(P)
             P = np.vstack(Ps); N = np.vstack(Ns); UV = np.vstack(UVs); I = np.vstack(Is); vc = np.vstack(VC)
-            preview.append((grp, kind, P, N, I, vc, pivot))
+            preview.append((grp, kind, P, N, I, vc, pivot, UV if kind in D.TEXTURED else None))
             Pg = P + o - (bt if grp == "body" else 0)
             slots[slot] = (Pg.astype(np.float32), N, UV, I.astype(np.int64), kind)
     return slots, pivot, preview

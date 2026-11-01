@@ -26,6 +26,8 @@ def run(m):
             check("_F13_UV_EFFECT" in t and ("%.6f" % (1 / M.FRAMES)) in t, k + " flipbook settings")
             check(struct.pack("<f", 1 / M.FRAMES) in open(S + M.mat_file(k), "rb").read() and (M.FRAMES & (M.FRAMES - 1)) == 0, k + " step exact")
         if k == D.GHOST: check('"Translucent"' in t and "_F21_VERTEXCUSTOM" not in t, "ghost material")
+        if k == D.GLOWTEX: check("_F07_UNLIT" in t and "_F13_UV_EFFECT" not in t, "Lantern Jack's cracks: unlit, no flipbook")
+        if k == D.BONETEX: check(all(s in t for s in ("_JACKBONE.DDS", "_JACKBONE.NORMAL.DDS", "_JACKBONE.MASKS.DDS")), "Lantern Jack's bone maps")
     for nm in M.FX:
         t = decompile(S + M.fx_data(nm))
         size = re.search(r'name="GeneralSize" value="TkEmitterFloatProperty">.*?MaxRandomValue" value="([^"]+)"', t, re.S)
@@ -44,7 +46,7 @@ def run(m):
                 check(os.path.isfile(os.path.join(m, p)), f"{sc}: scene ref missing: {ref}")
         check(st.count('value="EMITTER"') == 2, sc + " haze emitters")
         import pickle; meshes = pickle.load(open(os.path.join(C.WORK, "out", f"{f['key']}_meshes.pkl"), "rb"))
-        for (grp, kind, P, N, I, vc, piv) in meshes:
+        for (grp, kind, P, N, I, vc, piv, *_) in meshes:
             check(len(P) < 65536 and I.max() < len(P) and np.isfinite(P).all() and np.isfinite(N).all(), f"{sc} {grp} {kind} mesh")
             check(P[:, 1].min() > -0.002 and P[:, 1].max() < 0.2 and np.abs(P[:, [0, 2]]).max() < 0.085, f"{sc} {grp} {kind} outside the pedestal area")
         # vertex budget: a 42k-vertex mesh on the Box-Bot Traveller filled the whole screen with red shards in game

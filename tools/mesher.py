@@ -33,12 +33,13 @@ def figure_v2(key):
     design/v2_<key>.pkl: parts already in metres and game axes (+Y up, -Z front, pedestal-top origin)"""
     d = pickle.load(open(os.path.join(V2_DIR, f"v2_{key}.pkl"), "rb"))
     out = {}
-    for group, kind, sw, P, N, I in d["parts"]:
+    for part in d["parts"]:
+        group, kind, sw, P, N, I = part[:6]; UV = part[6] if len(part) > 6 else None
         P = P.astype(np.float64); N = N.astype(np.float64); I = np.asarray(I, np.int64)
         fn = np.cross(P[I[:, 1]] - P[I[:, 0]], P[I[:, 2]] - P[I[:, 0]])
         keep = np.linalg.norm(fn, axis=1) > 1e-16; I = I[keep]; fn = fn[keep]
         flip = (fn * N[I].mean(1)).sum(1) < 0; I = I.copy(); I[flip] = I[flip][:, [0, 2, 1]]
-        out.setdefault((group, kind), []).append((P, N, I, D.SWATCH[sw] if sw else 0))
+        out.setdefault((group, kind), []).append((P, N, I, D.SWATCH[sw] if sw else 0) + ((UV,) if UV is not None else ()))
     return out, d["pivot"]
 
 def figure(key, step=0.011):
