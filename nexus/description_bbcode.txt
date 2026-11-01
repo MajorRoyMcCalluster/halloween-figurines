@@ -8,7 +8,7 @@ Adds two [b]new[/b] cockpit figurines to the Quicksilver shop. None of the game'
 
 [list]
 [*][b]Boo[/b] - a see-through sheet ghost waving hello, with a glowing jack-o'-lantern pail of sweets
-[*][b]Lantern Jack[/b] - a skeleton with a grinning jack-o'-lantern head, holding up a glowing lantern and leaning on a crooked staff
+[*][b]Lantern Jack[/b] - a skeleton with a grinning jack-o'-lantern head, holding up a glowing lantern and leaning on a crooked staff. His aged bones glow cursed green in the cracks, even in a dark cockpit
 [*]Candle-lit jack-o'-lanterns that flicker
 [*]A [b]cursed green haze[/b] with glowing motes rolling round the dash - the ghost-light the game uses on its haunted frigates, shrunk to cockpit size
 [*]Original models and textures, built from scratch for this mod

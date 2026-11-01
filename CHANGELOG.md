@@ -2,6 +2,12 @@
 
 Only published releases are listed here.
 
+## 1.0.1 - 2026-11-01
+
+- Lantern Jack's bones are now aged bone with grime in the joints, a pitted surface and a cursed-green glow in
+  the cracks that still shows in a dark cockpit.
+- Shop pictures and the mod page images show the new look.
+
 ## 1.0.0 - 2026-11-01
 
 First release.

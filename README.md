@@ -2,7 +2,7 @@
 
 ![Halloween Figurines](nexus/images/00_header.png)
 
-Two new Halloween cockpit figurines for **No Man's Sky**, sold in the Quicksilver shop: **Boo**, a see-through sheet ghost with a glowing pail of sweets, and **Lantern Jack**, a pumpkin-headed skeleton holding up a glowing lantern. Flickering candle-lit jack-o'-lanterns, a cursed green haze rolling round the dash, and wobbling heads like the game's own figurines. Nothing in the game is replaced.
+Two new Halloween cockpit figurines for **No Man's Sky**, sold in the Quicksilver shop: **Boo**, a see-through sheet ghost with a glowing pail of sweets, and **Lantern Jack**, a pumpkin-headed skeleton holding up a glowing lantern, its aged bones glowing cursed green in the cracks. Flickering candle-lit jack-o'-lanterns, a cursed green haze rolling round the dash, and wobbling heads like the game's own figurines. Nothing in the game is replaced.
 
 - New items: none of the game's figurines are replaced
 - Multiplayer: other players without the mod won't see them
@@ -16,7 +16,7 @@ Two new Halloween cockpit figurines for **No Man's Sky**, sold in the Quicksilve
 | Figurine | |
 |---|---|
 | **Boo** | A see-through sheet ghost waving hello, with a glowing jack-o'-lantern pail of sweets |
-| **Lantern Jack** | A skeleton with a grinning jack-o'-lantern head, holding up a glowing lantern and leaning on a crooked staff |
+| **Lantern Jack** | A skeleton with a grinning jack-o'-lantern head, holding up a glowing lantern and leaning on a crooked staff. Its aged bones glow cursed green in the cracks |
 
 ## Building it yourself
 
@@ -40,7 +40,7 @@ mesh bounds and vertex budget, shop and figurine-list entries) and refuses to pa
 ### What's where
 | Path | What it is |
 |---|---|
-| `design/halloween_v2.blend` | The models. Text blocks inside: `hw_lib` (shared helpers), `hw_pumpskel` (builds Lantern Jack), `hw_export` (writes `design/v2_*.pkl`) |
+| `design/halloween_v2.blend` | The models. Text blocks inside: `hw_lib` (shared helpers), `hw_pumpskel` (builds Lantern Jack), `hw_jackbone` (bakes his bone texture into `design/bake/`), `hw_export` (writes `design/v2_*.pkl`) |
 | `tools/model.py` | Builds the figurine scenes, materials, palette and flipbook textures, and the haze particles |
 | `tools/tables.py` | Shop, technology, reward, product and figurine-list entries, and the in-game text |
 | `tools/icons.py` | Shop icons and hero images, rendered from the built meshes |
@@ -53,7 +53,9 @@ mesh bounds and vertex budget, shop and figurine-list entries) and refuses to pa
 ### How it works
 Each figurine is a copy of the game's Polo figurine scene with its meshes replaced: the head hangs off the
 figurine's head joint (that's what wobbles), the body is static, and the game's own pedestal and glow ring are
-kept. Lit parts share one small palette texture, so a figurine is a handful of meshes with no texture of its own.
+kept. Lit parts share one small palette texture, so most of a figurine is a handful of meshes with no texture of its own.
+Lantern Jack's bones are the exception: they're baked (colour, pitted normal, roughness), and their deepest cracks sit on
+an unlit material so the green glow still shows in a dark cockpit (the game's current lit materials have no glow).
 The candle glow is an unlit flipbook that flickers, and the green haze is the game's haunted-frigate particle
 effect, shrunk to dashboard size.
 

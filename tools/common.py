@@ -1,7 +1,7 @@
 """Shared settings and helpers for the Halloween Figurines build."""
 import os, shutil, subprocess, sys
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 AUTHOR = "MajorRoyMcCalluster"
 MOD_NAME = "Halloween Figurines"
 MOD_FOLDER = "HalloweenFigurines"                # folder inside GAMEDATA/MODS

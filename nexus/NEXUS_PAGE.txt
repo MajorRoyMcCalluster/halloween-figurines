@@ -1,5 +1,5 @@
 =====================================================================
- NEXUS MODS UPLOAD SHEET  -  Halloween Figurines  v1.0.0
+ NEXUS MODS UPLOAD SHEET  -  Halloween Figurines  v1.0.1
  Copy each field into the matching box on the Nexus upload form.
 =====================================================================
 
@@ -7,7 +7,7 @@ MOD NAME
 Halloween Figurines - Boo and Lantern Jack
 
 VERSION
-1.0.0
+1.0.1
 
 AUTHOR
 MajorRoyMcCalluster
@@ -37,15 +37,15 @@ Cockpit, Ships, Models, Bobblehead, Figurine, Decoration, Halloween, New Item
 ---------------------------------------------------------------------
 BRIEF OVERVIEW / SUMMARY  (the short line under the title, under 350 characters)
 ---------------------------------------------------------------------
-Two new Halloween cockpit figurines from the Quicksilver shop: Boo the sheet ghost with a pail of sweets, and Lantern Jack, a pumpkin-headed skeleton holding up a glowing lantern. Flickering candle-lit pumpkins and the cursed-frigate green haze rolling round the dash. Nothing is replaced.
+Two new Halloween cockpit figurines from the Quicksilver shop: Boo the sheet ghost with a pail of sweets, and Lantern Jack, a pumpkin-headed skeleton holding up a glowing lantern, his bones glowing cursed green in the cracks. Flickering candle-lit pumpkins and a green haze round the dash. Nothing is replaced.
 
 ---------------------------------------------------------------------
 MAIN FILE  (Files tab)
 ---------------------------------------------------------------------
 File name:     Halloween Figurines
-Version:       1.0.0
+Version:       1.0.1
 Category:      Main files
-Upload:        Halloween Figurines-1.0.0.zip
+Upload:        Halloween Figurines-1.0.1.zip
 Description:   Extract the HalloweenFigurines folder into No Man's Sky\GAMEDATA\MODS. Shop-overhaul users: see Compatibility.
 
 ---------------------------------------------------------------------
@@ -72,7 +72,7 @@ Adds two [b]new[/b] cockpit figurines to the Quicksilver shop. None of the game'
 
 [list]
 [*][b]Boo[/b] - a see-through sheet ghost waving hello, with a glowing jack-o'-lantern pail of sweets
-[*][b]Lantern Jack[/b] - a skeleton with a grinning jack-o'-lantern head, holding up a glowing lantern and leaning on a crooked staff
+[*][b]Lantern Jack[/b] - a skeleton with a grinning jack-o'-lantern head, holding up a glowing lantern and leaning on a crooked staff. His aged bones glow cursed green in the cracks, even in a dark cockpit
 [*]Candle-lit jack-o'-lanterns that flicker
 [*]A [b]cursed green haze[/b] with glowing motes rolling round the dash - the ghost-light the game uses on its haunted frigates, shrunk to cockpit size
 [*]Original models and textures, built from scratch for this mod
@@ -122,5 +122,7 @@ Blender models and build tools: [url=https://github.com/MajorRoyMcCalluster/hall
 [center][size=2][i]Endorse if it gave you a fright in a dogfight.[/i][/size][/center]
 ---------------------------------------------------------------------
 
-CHANGELOG  (Logs tab)
-(empty - add an entry only for a release we agree to publish)
+CHANGELOG  (Logs tab - first upload, so one entry)
+Version 1.0.1
+- First release on Nexus: Boo and Lantern Jack.
+- Lantern Jack's bones are aged bone that glows cursed green in the cracks, even in a dark cockpit.
